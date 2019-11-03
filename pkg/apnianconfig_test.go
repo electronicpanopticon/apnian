@@ -6,6 +6,14 @@ import (
 )
 
 func TestApnianConfig(t *testing.T) {
+	t.Run("GetApnianConfig", func(t *testing.T) {
+		configName = "apnian.example"
+		sut, err := GetApnianConfig()
+
+		assert.Nil(t, err)
+		assert.IsType(t, &ApnianConfig{}, sut)
+	})
+
 	t.Run("getApnianConfig", func(t *testing.T) {
 		sut, err := getApnianConfig("apnian.example")
 

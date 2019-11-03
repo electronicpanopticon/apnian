@@ -12,8 +12,10 @@ type ApnianConfig struct {
 	TeamID string
 }
 
+var configName = "apnian"
+
 func GetApnianConfig() (*ApnianConfig, error) {
-	return getApnianConfig("apnian")
+	return getApnianConfig(configName)
 }
 
 func getApnianConfig(filename string) (*ApnianConfig, error) {
