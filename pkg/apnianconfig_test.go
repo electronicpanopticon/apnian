@@ -2,12 +2,15 @@ package pkg
 
 import (
 	"crypto/ecdsa"
+	"github.com/sideshow/apns2/token"
 	"github.com/stretchr/testify/assert"
 	"os"
 	"testing"
 )
 
 func TestApnianConfig(t *testing.T) {
+	apnianConfigurer := ApnianConfigurer{"apnian.example", "../files/test"}
+
 	t.Run("GetApnianConfig", func(t *testing.T) {
 		sut, err := GetApnianConfig("apnian.example")
 
@@ -55,8 +58,7 @@ func TestApnianConfig(t *testing.T) {
 	})
 
 	t.Run("AuthKeyPath()", func(t *testing.T) {
-		ac := ApnianConfigurer{"apnian.example", "../files/test"}
-		sut, err := ac.getApnianConfig()
+		sut, err := apnianConfigurer.getApnianConfig()
 
 		keyPath := sut.AuthKeyPath()
 
@@ -66,13 +68,23 @@ func TestApnianConfig(t *testing.T) {
 	})
 
 	t.Run("AuthKey()", func(t *testing.T) {
-		ac := ApnianConfigurer{"apnian.example", "../files/test"}
-		sut, err := ac.getApnianConfig()
+		sut, err := apnianConfigurer.getApnianConfig()
 
 		authKey, err := sut.AuthKey()
 
 		assert.Nil(t, err)
 		assert.IsType(t, &ecdsa.PrivateKey{}, authKey)
 		assert.NotNil(t, authKey)
+	})
+
+	t.Run("Token()", func(t *testing.T) {
+		sut, err := apnianConfigurer.getApnianConfig()
+
+		toke, err := sut.Token()
+
+		assert.Nil(t, err)
+		assert.IsType(t, &token.Token{}, toke)
+		assert.Equal(t, sut.APNSKeyID, toke.KeyID)
+		assert.Equal(t, sut.TeamID, toke.TeamID)
 	})
 }
