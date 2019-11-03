@@ -22,6 +22,10 @@ TeamID: YourTeamID
 ```
 
 ### Step 2
+
+Place your Apple provided p8 file under $GOPATH/keys
+
+### Step 3
 Call Apnian from your code:
 
 ```go
@@ -45,7 +49,7 @@ func main() {
 }
 ```
 
-### Step 4
+### Step 5
 
 Profit!
 
