@@ -2,6 +2,7 @@ package pkg
 
 import (
 	"github.com/stretchr/testify/assert"
+	"os"
 	"testing"
 )
 
@@ -53,6 +54,13 @@ func TestApnianConfig(t *testing.T) {
 	})
 
 	t.Run("AuthKeyPath()", func(t *testing.T) {
+		ac := ApnianConfigurer{"apnian.example", "../files/test"}
+		sut, err := ac.getApnianConfig()
 
+		keyPath := sut.AuthKeyPath()
+
+		info, err := os.Stat(keyPath)
+		assert.Nil(t, err)
+		assert.Equal(t, info.Name(), sut.P8KeyName)
 	})
 }

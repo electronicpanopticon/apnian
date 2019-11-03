@@ -1,6 +1,7 @@
 package pkg
 
 import (
+	"fmt"
 	"github.com/electronicpanopticon/gobrick"
 	"github.com/spf13/viper"
 )
@@ -11,15 +12,21 @@ type ApnianConfigurer struct {
 }
 
 type ApnianConfig struct {
-	P8KeyName string
-	Topic string
-	APNSKeyID string
-	TeamID string
+	P8KeyName  string
+	Topic      string
+	APNSKeyID  string
+	TeamID     string
+	Configurer ApnianConfigurer
 }
 
 func GetApnianConfig(configName string) (*ApnianConfig, error) {
 	ac := ApnianConfigurer{configName, gobrick.GetGOPATH()}
 	return ac.getApnianConfig()
+}
+
+func (ac ApnianConfig) AuthKeyPath() string {
+	rel := fmt.Sprintf("keys/%s", ac.P8KeyName)
+	return fmt.Sprintf("%s/%s", ac.Configurer.Root, rel)
 }
 
 func (ac ApnianConfigurer) getApnianConfig() (*ApnianConfig, error) {
@@ -35,5 +42,6 @@ func (ac ApnianConfigurer) getApnianConfig() (*ApnianConfig, error) {
 	if err := viper.Unmarshal(&c); err != nil {
 		return nil, err
 	}
+	c.Configurer = ac
 	return &c, nil
 }
