@@ -70,6 +70,19 @@ func (apnian Apnian) Notification(deviceID string, payload *APS) *apns2.Notifica
 	return notification
 }
 
+func (apnian Apnian) getClient() (*apns2.Client, error) {
+	if apnian.Client == nil {
+		token, err := apnian.Token()
+		if err != nil {
+			return nil, err
+		}
+		apnian.Client = apns2.NewTokenClient(token).Development()
+	}
+	return apnian.Client, nil
+}
+
+// func (apnian Apnian) Push
+
 // getApnian returns an Apnian from the configured Viper instance.
 func (ac ApnianConfigurer) getApnian() (*Apnian, error) {
 	ac.configureViper()
@@ -84,6 +97,8 @@ func (ac ApnianConfigurer) getApnian() (*Apnian, error) {
 	c.Configurer = &ac
 	return &c, nil
 }
+
+
 
 // configureViper
 func (apnian ApnianConfigurer) configureViper() {

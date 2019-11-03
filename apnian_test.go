@@ -77,6 +77,16 @@ func TestApnianConfig(t *testing.T) {
 		assert.NotNil(t, authKey)
 	})
 
+	t.Run("AuthKey() bad key", func(t *testing.T) {
+		ac := ApnianConfigurer{"apnian.badkey", "../files/test"}
+		sut, err := ac.getApnian()
+
+		_, err2 := sut.AuthKey()
+
+		assert.Nil(t, err)
+		assert.NotNil(t, err2)
+	})
+
 	t.Run("Token()", func(t *testing.T) {
 		sut, err := apnianConfigurer.getApnian()
 
@@ -87,6 +97,16 @@ func TestApnianConfig(t *testing.T) {
 		assert.IsType(t, &token.Token{}, toke)
 		assert.Equal(t, sut.APNSKeyID, toke.KeyID)
 		assert.Equal(t, sut.TeamID, toke.TeamID)
+	})
+
+	t.Run("Token() bad key", func(t *testing.T) {
+		ac := ApnianConfigurer{"apnian.badkey", "../files/test"}
+		sut, err := ac.getApnian()
+
+		_, err2 := sut.Token()
+
+		assert.Nil(t, err)
+		assert.NotNil(t, err2)
 	})
 
 	t.Run("Notification()", func(t *testing.T) {
