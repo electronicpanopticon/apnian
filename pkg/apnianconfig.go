@@ -10,6 +10,7 @@ type ApnianConfig struct {
 	Topic string
 	APNSKeyID string
 	TeamID string
+	Devices []string
 }
 
 func GetApnianConfig() (*ApnianConfig, error) {

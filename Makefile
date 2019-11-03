@@ -7,7 +7,7 @@ GOTEST=$(GOCMD) test
 all: get test
 
 test:
-		$(GOTEST) -v ./...
+		$(GOTEST) -v ./... -cover
 
 get:
 		dep ensure
