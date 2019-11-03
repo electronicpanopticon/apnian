@@ -1,4 +1,4 @@
-package apnian_go
+package apnian
 
 import (
 	"crypto/ecdsa"
@@ -16,7 +16,7 @@ type ApnianConfigurer struct {
 	Root string
 }
 
-type ApnianConfig struct {
+type Apnian struct {
 	P8KeyName  string
 	Topic      string
 	APNSKeyID  string
@@ -24,31 +24,31 @@ type ApnianConfig struct {
 	Configurer ApnianConfigurer
 }
 
-// GetApnianConfig returns an ApnianConfig filed with the values in its config file.
+// GetApnianConfig returns an Apnian filed with the values in its config file.
 // Locations it looks for are:
 //		.
 //		..
 //		$GOPATH/config
 //		$HOME
-func GetApnianConfig(configName string) (*ApnianConfig, error) {
+func GetApnianConfig(configName string) (*Apnian, error) {
 	ac := ApnianConfigurer{configName, gobrick.GetGOPATH()}
 	return ac.getApnianConfig()
 }
 
-// AuthKeyPath returns the path to the ECDSA private key specified in the ApnianConfig file.
-func (ac ApnianConfig) AuthKeyPath() string {
+// AuthKeyPath returns the path to the ECDSA private key specified in the Apnian file.
+func (ac Apnian) AuthKeyPath() string {
 	rel := fmt.Sprintf("keys/%s", ac.P8KeyName)
 	return fmt.Sprintf("%s/%s", ac.Configurer.Root, rel)
 }
 
-// AuthKey returns the ECDSA private key specified in the ApnianConfig file.
-func (ac ApnianConfig) AuthKey() (*ecdsa.PrivateKey, error) {
+// AuthKey returns the ECDSA private key specified in the Apnian file.
+func (ac Apnian) AuthKey() (*ecdsa.PrivateKey, error) {
 	return token.AuthKeyFromFile(ac.AuthKeyPath())
 }
 
 // Token represents an Apple Provider Authentication Token (JSON Web Token) configured
-// with the values from the ApnianConfig file.
-func (ac ApnianConfig) Token() (*token.Token, error) {
+// with the values from the Apnian file.
+func (ac Apnian) Token() (*token.Token, error) {
 	authKey, err := ac.AuthKey()
 	if err != nil {
 		return &token.Token{}, err
@@ -60,7 +60,7 @@ func (ac ApnianConfig) Token() (*token.Token, error) {
 	}, nil
 }
 
-func (ac ApnianConfig) Notification(deviceID string, payload *APS) *apns2.Notification {
+func (ac Apnian) Notification(deviceID string, payload *APS) *apns2.Notification {
 	notification := &apns2.Notification{}
 	notification.DeviceToken = deviceID
 	notification.Topic = ac.Topic
@@ -68,11 +68,11 @@ func (ac ApnianConfig) Notification(deviceID string, payload *APS) *apns2.Notifi
 	return notification
 }
 
-// getApnianConfig returns an ApnianConfig from the configured Viper instance.
-func (ac ApnianConfigurer) getApnianConfig() (*ApnianConfig, error) {
+// getApnianConfig returns an Apnian from the configured Viper instance.
+func (ac ApnianConfigurer) getApnianConfig() (*Apnian, error) {
 	ac.configureViper()
 
-	var c ApnianConfig
+	var c Apnian
 	if err := viper.ReadInConfig(); err != nil {
 		return nil, err
 	}

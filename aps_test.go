@@ -1,4 +1,4 @@
-package apnian_go
+package apnian
 
 import (
 	"encoding/json"

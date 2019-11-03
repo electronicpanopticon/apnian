@@ -1,4 +1,4 @@
-package apnian_go
+package apnian
 
 import (
 	"crypto/ecdsa"
@@ -15,14 +15,14 @@ func TestApnianConfig(t *testing.T) {
 		sut, err := GetApnianConfig("apnian.example")
 
 		Nil(t, err)
-		IsType(t, &ApnianConfig{}, sut)
+		IsType(t, &Apnian{}, sut)
 	})
 
 	t.Run("getApnianConfig", func(t *testing.T) {
 		sut, err := GetApnianConfig("apnian.example")
 
 		Nil(t, err)
-		IsType(t, &ApnianConfig{}, sut)
+		IsType(t, &Apnian{}, sut)
 		NotEmpty(t, sut.P8KeyName)
 		NotEmpty(t, sut.Topic)
 		NotEmpty(t, sut.APNSKeyID)
@@ -34,7 +34,7 @@ func TestApnianConfig(t *testing.T) {
 		sut, err := ac.getApnianConfig()
 
 		Nil(t, err)
-		IsType(t, &ApnianConfig{}, sut)
+		IsType(t, &Apnian{}, sut)
 		NotEmpty(t, sut.P8KeyName)
 		NotEmpty(t, sut.Topic)
 		NotEmpty(t, sut.APNSKeyID)
