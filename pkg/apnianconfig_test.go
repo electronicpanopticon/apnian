@@ -22,4 +22,10 @@ func TestApnianConfig(t *testing.T) {
 
 		assert.Error(t, err)
 	})
+
+	t.Run("getApnianConfig bad config file returns error", func(t *testing.T) {
+		_, err := getApnianConfig("apnian.badexample")
+
+		assert.Error(t, err)
+	})
 }
