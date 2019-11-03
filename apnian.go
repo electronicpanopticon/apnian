@@ -84,7 +84,10 @@ func (apnian *Apnian) loadClient() error {
 
 func (apnian Apnian) Push(deviceID string, payload *APS) (*apns2.Response, error) {
 	notification := apnian.Notification(deviceID, payload)
-	apnian.loadClient()
+	err := apnian.loadClient()
+	if err != nil {
+		return nil, err
+	}
 	return apnian.Client.Push(notification)
 }
 
