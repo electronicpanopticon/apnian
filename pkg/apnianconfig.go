@@ -1,8 +1,10 @@
 package pkg
 
 import (
+	"crypto/ecdsa"
 	"fmt"
 	"github.com/electronicpanopticon/gobrick"
+	"github.com/sideshow/apns2/token"
 	"github.com/spf13/viper"
 )
 
@@ -27,6 +29,10 @@ func GetApnianConfig(configName string) (*ApnianConfig, error) {
 func (ac ApnianConfig) AuthKeyPath() string {
 	rel := fmt.Sprintf("keys/%s", ac.P8KeyName)
 	return fmt.Sprintf("%s/%s", ac.Configurer.Root, rel)
+}
+
+func (ac ApnianConfig) AuthKey() (*ecdsa.PrivateKey, error) {
+	return token.AuthKeyFromFile(ac.AuthKeyPath())
 }
 
 func (ac ApnianConfigurer) getApnianConfig() (*ApnianConfig, error) {

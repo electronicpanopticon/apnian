@@ -1,6 +1,7 @@
 package pkg
 
 import (
+	"crypto/ecdsa"
 	"github.com/stretchr/testify/assert"
 	"os"
 	"testing"
@@ -62,5 +63,16 @@ func TestApnianConfig(t *testing.T) {
 		info, err := os.Stat(keyPath)
 		assert.Nil(t, err)
 		assert.Equal(t, info.Name(), sut.P8KeyName)
+	})
+
+	t.Run("AuthKey()", func(t *testing.T) {
+		ac := ApnianConfigurer{"apnian.example", "../files/test"}
+		sut, err := ac.getApnianConfig()
+
+		authKey, err := sut.AuthKey()
+
+		assert.Nil(t, err)
+		assert.IsType(t, &ecdsa.PrivateKey{}, authKey)
+		assert.NotNil(t, authKey)
 	})
 }

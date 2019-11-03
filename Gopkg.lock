@@ -10,6 +10,14 @@
   version = "v1.1.1"
 
 [[projects]]
+  digest = "1:76dc72490af7174349349838f2fe118996381b31ea83243812a97e5a0fd5ed55"
+  name = "github.com/dgrijalva/jwt-go"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "06ea1031745cb8b3dab3f6a236daf2b0aa468b7e"
+  version = "v3.2.0"
+
+[[projects]]
   digest = "1:2ec67859562b5554e9f7f6ce7fef735c6a2bac434e6ac038c0b555568726a932"
   name = "github.com/electronicpanopticon/gobrick"
   packages = ["."]
@@ -75,6 +83,14 @@
   pruneopts = "UT"
   revision = "792786c7400a136282c1664665ae0a8db921c6c2"
   version = "v1.0.0"
+
+[[projects]]
+  digest = "1:1a094cb1a1f4c2107f0e0d5106d092404715b073b93f18970a3f5dc19a846235"
+  name = "github.com/sideshow/apns2"
+  packages = ["token"]
+  pruneopts = "UT"
+  revision = "ebc6b401ae2491ad1626bae013fa448987526424"
+  version = "v0.19.0"
 
 [[projects]]
   digest = "1:bb495ec276ab82d3dd08504bbc0594a65de8c3b22c6f2aaa92d05b73fbf3a82e"
@@ -171,6 +187,7 @@
   analyzer-version = 1
   input-imports = [
     "github.com/electronicpanopticon/gobrick",
+    "github.com/sideshow/apns2/token",
     "github.com/spf13/viper",
     "github.com/stretchr/testify/assert",
   ]
