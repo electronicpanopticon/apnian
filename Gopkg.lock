@@ -93,9 +93,12 @@
   version = "v1.0.0"
 
 [[projects]]
-  digest = "1:1a094cb1a1f4c2107f0e0d5106d092404715b073b93f18970a3f5dc19a846235"
+  digest = "1:a0a23596d80ba6284ef8d33c7e0ee86b60cf93ca6068fcbc53fca3f7e6b01554"
   name = "github.com/sideshow/apns2"
-  packages = ["token"]
+  packages = [
+    ".",
+    "token",
+  ]
   pruneopts = "UT"
   revision = "ebc6b401ae2491ad1626bae013fa448987526424"
   version = "v0.19.0"
@@ -161,6 +164,19 @@
 
 [[projects]]
   branch = "master"
+  digest = "1:1c693c2ef502604b399b63340456c1699ae7b8003e5d38e44fe5ef47e302f10b"
+  name = "golang.org/x/net"
+  packages = [
+    "http/httpguts",
+    "http2",
+    "http2/hpack",
+    "idna",
+  ]
+  pruneopts = "UT"
+  revision = "0deb6923b6d97481cb43bc1043fe5b72a0143032"
+
+[[projects]]
+  branch = "master"
   digest = "1:999c8e6b10ddb08bc4ea3a56d4e838194c4884eac6ecf90a9aa98ed8475fdf37"
   name = "golang.org/x/sys"
   packages = ["unix"]
@@ -168,15 +184,25 @@
   revision = "f43be2a4598cf3a47be9f94f0c28197ed9eae611"
 
 [[projects]]
-  digest = "1:1093f2eb4b344996604f7d8b29a16c5b22ab9e1b25652140d3fede39f640d5cd"
+  digest = "1:8d8faad6b12a3a4c819a3f9618cb6ee1fa1cfc33253abeeea8b55336721e3405"
   name = "golang.org/x/text"
   packages = [
+    "collate",
+    "collate/build",
+    "internal/colltab",
     "internal/gen",
+    "internal/language",
+    "internal/language/compact",
+    "internal/tag",
     "internal/triegen",
     "internal/ucd",
+    "language",
+    "secure/bidirule",
     "transform",
+    "unicode/bidi",
     "unicode/cldr",
     "unicode/norm",
+    "unicode/rangetable",
   ]
   pruneopts = "UT"
   revision = "342b2e1fbaa52c93f31447ad2c6abc048c63e475"
@@ -196,6 +222,7 @@
   input-imports = [
     "github.com/electronicpanopticon/gobrick",
     "github.com/mitchellh/go-homedir",
+    "github.com/sideshow/apns2",
     "github.com/sideshow/apns2/token",
     "github.com/spf13/viper",
     "github.com/stretchr/testify/assert",

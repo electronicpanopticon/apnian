@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/electronicpanopticon/gobrick"
 	"github.com/mitchellh/go-homedir"
+	"github.com/sideshow/apns2"
 	"github.com/sideshow/apns2/token"
 	"github.com/spf13/viper"
 	"log"
@@ -57,6 +58,14 @@ func (ac ApnianConfig) Token() (*token.Token, error) {
 		KeyID:    ac.APNSKeyID,
 		TeamID:   ac.TeamID,
 	}, nil
+}
+
+func (ac ApnianConfig) Notification(deviceID string, payload []byte) *apns2.Notification {
+	notification := &apns2.Notification{}
+	notification.DeviceToken = deviceID
+	notification.Topic = ac.Topic
+	notification.Payload = payload
+	return notification
 }
 
 // getApnianConfig returns an ApnianConfig from the configured Viper instance.

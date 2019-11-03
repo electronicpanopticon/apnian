@@ -50,7 +50,7 @@ func TestApnianConfig(t *testing.T) {
 	})
 
 	t.Run("getApnianConfig bad config file returns error", func(t *testing.T) {
-		ac := ApnianConfigurer{"apnian.badexample", "."}
+		ac := ApnianConfigurer{"apnian.badexample", "../files/test"}
 		sut, err := ac.getApnianConfig()
 
 		assert.Nil(t, sut)
@@ -86,5 +86,14 @@ func TestApnianConfig(t *testing.T) {
 		assert.IsType(t, &token.Token{}, toke)
 		assert.Equal(t, sut.APNSKeyID, toke.KeyID)
 		assert.Equal(t, sut.TeamID, toke.TeamID)
+	})
+
+	t.Run("Notification()", func(t *testing.T) {
+		//deviceId := "123456"
+		//sut, err := apnianConfigurer.getApnianConfig()
+
+		//notification := sut.Notification(deviceId)
+		//
+		//assert.Nil(t, err)
 	})
 }
