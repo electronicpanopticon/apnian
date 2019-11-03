@@ -6,6 +6,7 @@
 ## Libraries
 
 * [APNS/2](https://github.com/sideshow/apns2)
+* [go-homedir](https://github.com/mitchellh/go-homedir)
 * [Goveralls](https://github.com/mattn/goveralls)
 
 ## Reference
@@ -13,7 +14,6 @@
 * [Local and Remote Notification Programming Guide](https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/APNSOverview.html)
 * [Sending Notification Requests to APNs](https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/sending_notification_requests_to_apns)
 * [Creating the Remote Notification Payload](https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CreatingtheNotificationPayload.html)
-* [github.com/devilsray/golang-viper-config-example](https://github.com/devilsray/golang-viper-config-example)
 
 ## TODO
 

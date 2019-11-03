@@ -21,18 +21,20 @@ type Apnian struct {
 	Topic      string
 	APNSKeyID  string
 	TeamID     string
-	Configurer ApnianConfigurer
+	Configurer *ApnianConfigurer
+	Client     *apns2.Client
+
 }
 
-// GetApnianConfig returns an Apnian filed with the values in its config file.
+// New returns an Apnian filed with the values in its config file.
 // Locations it looks for are:
 //		.
 //		..
 //		$GOPATH/config
 //		$HOME
-func GetApnianConfig(configName string) (*Apnian, error) {
+func New(configName string) (*Apnian, error) {
 	ac := ApnianConfigurer{configName, gobrick.GetGOPATH()}
-	return ac.getApnianConfig()
+	return ac.getApnian()
 }
 
 // AuthKeyPath returns the path to the ECDSA private key specified in the Apnian file.
@@ -68,8 +70,8 @@ func (ac Apnian) Notification(deviceID string, payload *APS) *apns2.Notification
 	return notification
 }
 
-// getApnianConfig returns an Apnian from the configured Viper instance.
-func (ac ApnianConfigurer) getApnianConfig() (*Apnian, error) {
+// getApnian returns an Apnian from the configured Viper instance.
+func (ac ApnianConfigurer) getApnian() (*Apnian, error) {
 	ac.configureViper()
 
 	var c Apnian
@@ -79,7 +81,7 @@ func (ac ApnianConfigurer) getApnianConfig() (*Apnian, error) {
 	if err := viper.Unmarshal(&c); err != nil {
 		return nil, err
 	}
-	c.Configurer = ac
+	c.Configurer = &ac
 	return &c, nil
 }
 
