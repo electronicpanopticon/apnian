@@ -138,4 +138,16 @@ func TestApnianConfig(t *testing.T) {
 		assert.NotNil(t, sut.Client)
 		assert.IsType(t, &apns2.Client{}, sut.Client)
 	})
+
+	t.Run("Push() with invalid provider token", func(t *testing.T) {
+		sut, err := apnianConfigurer.getApnian()
+		aps := GenerateAPS(alert, sound, linkUrl)
+
+		res, err2 := sut.Push("123456", aps)
+
+		assert.Nil(t, err)
+		assert.Nil(t, err2)
+		assert.Equal(t, res.StatusCode, 403)
+		assert.Equal(t, res.Reason, "InvalidProviderToken")
+	})
 }
