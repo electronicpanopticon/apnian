@@ -6,6 +6,7 @@
 ## About
 
 Apnian is a wrapper around the [sideshow/apns2](https://github.com/sideshow/apns2) Apple Push Notification Service library. 
+APNs allows you to send messages to your Apple devices such as an iPhone or Apple Watch. 
 
 ## Usage
 
