@@ -33,39 +33,39 @@ type Apnian struct {
 //		$GOPATH/config
 //		$HOME
 func New(configName string) (*Apnian, error) {
-	ac := ApnianConfigurer{configName, gobrick.GetGOPATH()}
-	return ac.getApnian()
+	apnian := ApnianConfigurer{configName, gobrick.GetGOPATH()}
+	return apnian.getApnian()
 }
 
 // AuthKeyPath returns the path to the ECDSA private key specified in the Apnian file.
-func (ac Apnian) AuthKeyPath() string {
-	rel := fmt.Sprintf("keys/%s", ac.P8KeyName)
-	return fmt.Sprintf("%s/%s", ac.Configurer.Root, rel)
+func (apnian Apnian) AuthKeyPath() string {
+	rel := fmt.Sprintf("keys/%s", apnian.P8KeyName)
+	return fmt.Sprintf("%s/%s", apnian.Configurer.Root, rel)
 }
 
 // AuthKey returns the ECDSA private key specified in the Apnian file.
-func (ac Apnian) AuthKey() (*ecdsa.PrivateKey, error) {
-	return token.AuthKeyFromFile(ac.AuthKeyPath())
+func (apnian Apnian) AuthKey() (*ecdsa.PrivateKey, error) {
+	return token.AuthKeyFromFile(apnian.AuthKeyPath())
 }
 
 // Token represents an Apple Provider Authentication Token (JSON Web Token) configured
 // with the values from the Apnian file.
-func (ac Apnian) Token() (*token.Token, error) {
-	authKey, err := ac.AuthKey()
+func (apnian Apnian) Token() (*token.Token, error) {
+	authKey, err := apnian.AuthKey()
 	if err != nil {
 		return &token.Token{}, err
 	}
 	return &token.Token{
 		AuthKey:  authKey,
-		KeyID:    ac.APNSKeyID,
-		TeamID:   ac.TeamID,
+		KeyID:    apnian.APNSKeyID,
+		TeamID:   apnian.TeamID,
 	}, nil
 }
 
-func (ac Apnian) Notification(deviceID string, payload *APS) *apns2.Notification {
+func (apnian Apnian) Notification(deviceID string, payload *APS) *apns2.Notification {
 	notification := &apns2.Notification{}
 	notification.DeviceToken = deviceID
-	notification.Topic = ac.Topic
+	notification.Topic = apnian.Topic
 	notification.Payload = payload.ToJsonBytes()
 	return notification
 }
@@ -86,8 +86,8 @@ func (ac ApnianConfigurer) getApnian() (*Apnian, error) {
 }
 
 // configureViper
-func (ac ApnianConfigurer) configureViper() {
-	viper.SetConfigName(ac.ConfigName)
+func (apnian ApnianConfigurer) configureViper() {
+	viper.SetConfigName(apnian.ConfigName)
 	viper.AddConfigPath(".")
 	viper.AddConfigPath("..")
 	home, err := homedir.Dir()
@@ -96,5 +96,5 @@ func (ac ApnianConfigurer) configureViper() {
 	} else {
 		log.Println("unable to get homedir")
 	}
-	viper.AddConfigPath(ac.Root + "/config")
+	viper.AddConfigPath(apnian.Root + "/config")
 }
