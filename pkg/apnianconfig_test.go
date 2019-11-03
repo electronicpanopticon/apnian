@@ -11,6 +11,7 @@ func TestApnianConfig(t *testing.T) {
 
 		assert.Nil(t, err)
 		assert.IsType(t, &ApnianConfig{}, sut)
+		assert.NotNil()
 	})
 
 	t.Run("getApnianConfig bad config name returns error", func(t *testing.T) {
