@@ -1,5 +1,7 @@
 package pkg
 
+import "github.com/electronicpanopticon/gobrick"
+
 type Payload struct {
 	Alert string 	`json:"alert"`
 	Sound string 	`json:"sound"`
@@ -19,4 +21,8 @@ func GenerateAPS(alert string, sound string, linkUrl string) *APS {
 	return &APS{
 		APS: payload,
 	}
+}
+
+func (aps APS) ToJsonBytes() []byte {
+	return gobrick.ToJsonBytes(aps)
 }

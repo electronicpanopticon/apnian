@@ -51,7 +51,7 @@ func (ac ApnianConfig) AuthKey() (*ecdsa.PrivateKey, error) {
 func (ac ApnianConfig) Token() (*token.Token, error) {
 	authKey, err := ac.AuthKey()
 	if err != nil {
-		return nil, err
+		return &token.Token{}, err
 	}
 	return &token.Token{
 		AuthKey:  authKey,
@@ -60,11 +60,11 @@ func (ac ApnianConfig) Token() (*token.Token, error) {
 	}, nil
 }
 
-func (ac ApnianConfig) Notification(deviceID string, payload []byte) *apns2.Notification {
+func (ac ApnianConfig) Notification(deviceID string, payload *APS) *apns2.Notification {
 	notification := &apns2.Notification{}
 	notification.DeviceToken = deviceID
 	notification.Topic = ac.Topic
-	notification.Payload = payload
+	notification.Payload = payload.ToJsonBytes()
 	return notification
 }
 

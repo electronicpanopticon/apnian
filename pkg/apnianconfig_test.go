@@ -3,7 +3,7 @@ package pkg
 import (
 	"crypto/ecdsa"
 	"github.com/sideshow/apns2/token"
-	"github.com/stretchr/testify/assert"
+	. "github.com/stretchr/testify/assert"
 	"os"
 	"testing"
 )
@@ -14,47 +14,47 @@ func TestApnianConfig(t *testing.T) {
 	t.Run("GetApnianConfig", func(t *testing.T) {
 		sut, err := GetApnianConfig("apnian.example")
 
-		assert.Nil(t, err)
-		assert.IsType(t, &ApnianConfig{}, sut)
+		Nil(t, err)
+		IsType(t, &ApnianConfig{}, sut)
 	})
 
 	t.Run("getApnianConfig", func(t *testing.T) {
 		sut, err := GetApnianConfig("apnian.example")
 
-		assert.Nil(t, err)
-		assert.IsType(t, &ApnianConfig{}, sut)
-		assert.NotEmpty(t, sut.P8KeyName)
-		assert.NotEmpty(t, sut.Topic)
-		assert.NotEmpty(t, sut.APNSKeyID)
-		assert.NotEmpty(t, sut.TeamID)
+		Nil(t, err)
+		IsType(t, &ApnianConfig{}, sut)
+		NotEmpty(t, sut.P8KeyName)
+		NotEmpty(t, sut.Topic)
+		NotEmpty(t, sut.APNSKeyID)
+		NotEmpty(t, sut.TeamID)
 	})
 
 	t.Run("getApnianConfig GOROOT/config path", func(t *testing.T) {
 		ac := ApnianConfigurer{"apnian.example.pathtest", "../files/test"}
 		sut, err := ac.getApnianConfig()
 
-		assert.Nil(t, err)
-		assert.IsType(t, &ApnianConfig{}, sut)
-		assert.NotEmpty(t, sut.P8KeyName)
-		assert.NotEmpty(t, sut.Topic)
-		assert.NotEmpty(t, sut.APNSKeyID)
-		assert.NotEmpty(t, sut.TeamID)
+		Nil(t, err)
+		IsType(t, &ApnianConfig{}, sut)
+		NotEmpty(t, sut.P8KeyName)
+		NotEmpty(t, sut.Topic)
+		NotEmpty(t, sut.APNSKeyID)
+		NotEmpty(t, sut.TeamID)
 	})
 
 	t.Run("getApnianConfig bad config name returns error", func(t *testing.T) {
 		ac := ApnianConfigurer{"apnian.example.nope", "."}
 		sut, err := ac.getApnianConfig()
 
-		assert.Nil(t, sut)
-		assert.Error(t, err)
+		Nil(t, sut)
+		Error(t, err)
 	})
 
 	t.Run("getApnianConfig bad config file returns error", func(t *testing.T) {
 		ac := ApnianConfigurer{"apnian.badexample", "../files/test"}
 		sut, err := ac.getApnianConfig()
 
-		assert.Nil(t, sut)
-		assert.Error(t, err)
+		Nil(t, sut)
+		Error(t, err)
 	})
 
 	t.Run("AuthKeyPath()", func(t *testing.T) {
@@ -63,8 +63,8 @@ func TestApnianConfig(t *testing.T) {
 		keyPath := sut.AuthKeyPath()
 
 		info, err := os.Stat(keyPath)
-		assert.Nil(t, err)
-		assert.Equal(t, info.Name(), sut.P8KeyName)
+		Nil(t, err)
+		Equal(t, info.Name(), sut.P8KeyName)
 	})
 
 	t.Run("AuthKey()", func(t *testing.T) {
@@ -72,26 +72,32 @@ func TestApnianConfig(t *testing.T) {
 
 		authKey, err := sut.AuthKey()
 
-		assert.Nil(t, err)
-		assert.IsType(t, &ecdsa.PrivateKey{}, authKey)
-		assert.NotNil(t, authKey)
+		Nil(t, err)
+		IsType(t, &ecdsa.PrivateKey{}, authKey)
+		NotNil(t, authKey)
 	})
 
 	t.Run("Token()", func(t *testing.T) {
 		sut, err := apnianConfigurer.getApnianConfig()
 
-		toke, err := sut.Token()
+		toke, err2 := sut.Token()
 
-		assert.Nil(t, err)
-		assert.IsType(t, &token.Token{}, toke)
-		assert.Equal(t, sut.APNSKeyID, toke.KeyID)
-		assert.Equal(t, sut.TeamID, toke.TeamID)
+		Nil(t, err)
+		Nil(t, err2)
+		IsType(t, &token.Token{}, toke)
+		Equal(t, sut.APNSKeyID, toke.KeyID)
+		Equal(t, sut.TeamID, toke.TeamID)
 	})
 
 	t.Run("Notification()", func(t *testing.T) {
-		//deviceId := "123456"
-		//sut, err := apnianConfigurer.getApnianConfig()
+		deviceID := "123456"
+		sut, err := apnianConfigurer.getApnianConfig()
+		payload := testAPS()
 
+		notification := sut.Notification(deviceID, payload)
+
+		Nil(t, err)
+		Equal(t, payload.ToJsonBytes(), notification.Payload)
 		//notification := sut.Notification(deviceId)
 		//
 		//assert.Nil(t, err)
