@@ -2,6 +2,7 @@ package apnian
 
 import (
 	"crypto/ecdsa"
+	"github.com/sideshow/apns2"
 	"github.com/sideshow/apns2/token"
 	"github.com/stretchr/testify/assert"
 	"os"
@@ -118,8 +119,23 @@ func TestApnianConfig(t *testing.T) {
 
 		assert.Nil(t, err)
 		assert.Equal(t, payload.ToJsonBytes(), notification.Payload)
-		//notification := sut.Notification(deviceId)
-		//
-		//assert.Nil(t, err)
+	})
+
+	t.Run("loadClient() not yet called", func(t *testing.T) {
+		sut, err := New("apnian.example")
+
+		assert.Nil(t, err)
+		assert.Nil(t, sut.Client)
+	})
+
+	t.Run("loadClient() called", func(t *testing.T) {
+		sut, err := apnianConfigurer.getApnian()
+
+		err2 := sut.loadClient()
+
+		assert.Nil(t, err)
+		assert.Nil(t, err2)
+		assert.NotNil(t, sut.Client)
+		assert.IsType(t, &apns2.Client{}, sut.Client)
 	})
 }

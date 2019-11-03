@@ -70,15 +70,16 @@ func (apnian Apnian) Notification(deviceID string, payload *APS) *apns2.Notifica
 	return notification
 }
 
-func (apnian Apnian) getClient() (*apns2.Client, error) {
+// loadClient lazy loads a configured apns2.Client.
+func (apnian *Apnian) loadClient() error {
 	if apnian.Client == nil {
 		token, err := apnian.Token()
 		if err != nil {
-			return nil, err
+			return err
 		}
 		apnian.Client = apns2.NewTokenClient(token).Development()
 	}
-	return apnian.Client, nil
+	return nil
 }
 
 // func (apnian Apnian) Push
