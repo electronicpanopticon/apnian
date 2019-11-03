@@ -5,7 +5,7 @@
 
 ## About
 
-Apnian is a wrapper around the sideshow/apns2 library. 
+Apnian is a wrapper around the [sideshow/apns2](https://github.com/sideshow/apns2) Apple Push Notification Service library. 
 
 ## Usage
 
@@ -61,6 +61,7 @@ Profit!
 
 * [APNS/2](https://github.com/sideshow/apns2)
 * [go-homedir](https://github.com/mitchellh/go-homedir)
+* [gobrick](https://github.com/electronicpanopticon/gobrick)
 * [Goveralls](https://github.com/mattn/goveralls)
 * [Viper](https://github.com/spf13/viper)
 

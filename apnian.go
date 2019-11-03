@@ -23,7 +23,6 @@ type Apnian struct {
 	TeamID     string
 	Configurer *ApnianConfigurer
 	Client     *apns2.Client
-
 }
 
 // New returns an Apnian filed with the values in its config file.
@@ -105,8 +104,6 @@ func (ac ApnianConfigurer) getApnian() (*Apnian, error) {
 	c.Configurer = &ac
 	return &c, nil
 }
-
-
 
 // configureViper
 func (apnian ApnianConfigurer) configureViper() {
