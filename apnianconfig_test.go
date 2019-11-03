@@ -1,4 +1,4 @@
-package pkg
+package apnian_go
 
 import (
 	"crypto/ecdsa"
@@ -9,7 +9,7 @@ import (
 )
 
 func TestApnianConfig(t *testing.T) {
-	apnianConfigurer := ApnianConfigurer{"apnian.example", "../files/test"}
+	apnianConfigurer := ApnianConfigurer{"apnian.example", "files/test"}
 
 	t.Run("GetApnianConfig", func(t *testing.T) {
 		sut, err := GetApnianConfig("apnian.example")
@@ -30,7 +30,7 @@ func TestApnianConfig(t *testing.T) {
 	})
 
 	t.Run("getApnianConfig GOROOT/config path", func(t *testing.T) {
-		ac := ApnianConfigurer{"apnian.example.pathtest", "../files/test"}
+		ac := ApnianConfigurer{"apnian.example.pathtest", "files/test"}
 		sut, err := ac.getApnianConfig()
 
 		Nil(t, err)

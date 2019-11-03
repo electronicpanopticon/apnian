@@ -1,4 +1,4 @@
-package pkg
+package apnian_go
 
 import (
 	"encoding/json"
