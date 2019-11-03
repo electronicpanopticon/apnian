@@ -6,17 +6,27 @@ import (
 )
 
 func TestApnianConfig(t *testing.T) {
-	ac := ApnianConfigurer{"apnian.example", "."}
-
 	t.Run("GetApnianConfig", func(t *testing.T) {
-		sut, err := ac.GetApnianConfig()
+		sut, err := GetApnianConfig("apnian.example")
 
 		assert.Nil(t, err)
 		assert.IsType(t, &ApnianConfig{}, sut)
 	})
 
 	t.Run("getApnianConfig", func(t *testing.T) {
-		sut, err := ac.GetApnianConfig()
+		sut, err := GetApnianConfig("apnian.example")
+
+		assert.Nil(t, err)
+		assert.IsType(t, &ApnianConfig{}, sut)
+		assert.NotEmpty(t, sut.P8KeyName)
+		assert.NotEmpty(t, sut.Topic)
+		assert.NotEmpty(t, sut.APNSKeyID)
+		assert.NotEmpty(t, sut.TeamID)
+	})
+
+	t.Run("getApnianConfig GOROOT/config path", func(t *testing.T) {
+		ac := ApnianConfigurer{"apnian.example.pathtest", "../files/test"}
+		sut, err := ac.getApnianConfig()
 
 		assert.Nil(t, err)
 		assert.IsType(t, &ApnianConfig{}, sut)
@@ -42,5 +52,7 @@ func TestApnianConfig(t *testing.T) {
 		assert.Error(t, err)
 	})
 
+	t.Run("AuthKeyPath()", func(t *testing.T) {
 
+	})
 }

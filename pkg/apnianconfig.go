@@ -17,7 +17,8 @@ type ApnianConfig struct {
 	TeamID string
 }
 
-func (ac ApnianConfigurer) GetApnianConfig() (*ApnianConfig, error) {
+func GetApnianConfig(configName string) (*ApnianConfig, error) {
+	ac := ApnianConfigurer{configName, gobrick.GetGOPATH()}
 	return ac.getApnianConfig()
 }
 
@@ -25,7 +26,7 @@ func (ac ApnianConfigurer) getApnianConfig() (*ApnianConfig, error) {
 	viper.SetConfigName(ac.ConfigName)
 	viper.AddConfigPath(".")
 	viper.AddConfigPath("..")
-	viper.AddConfigPath(gobrick.GetGOPATH() + "/config")
+	viper.AddConfigPath(ac.Root + "/config")
 
 	var c ApnianConfig
 	if err := viper.ReadInConfig(); err != nil {
