@@ -5,6 +5,11 @@ import (
 	"github.com/spf13/viper"
 )
 
+type ApnianConfigurer struct {
+	ConfigName string
+	Root string
+}
+
 type ApnianConfig struct {
 	P8KeyName string
 	Topic string
@@ -12,14 +17,12 @@ type ApnianConfig struct {
 	TeamID string
 }
 
-var configName = "apnian"
-
-func GetApnianConfig() (*ApnianConfig, error) {
-	return getApnianConfig(configName)
+func (ac ApnianConfigurer) GetApnianConfig() (*ApnianConfig, error) {
+	return ac.getApnianConfig()
 }
 
-func getApnianConfig(filename string) (*ApnianConfig, error) {
-	viper.SetConfigName(filename)
+func (ac ApnianConfigurer) getApnianConfig() (*ApnianConfig, error) {
+	viper.SetConfigName(ac.ConfigName)
 	viper.AddConfigPath(".")
 	viper.AddConfigPath("..")
 	viper.AddConfigPath(gobrick.GetGOPATH() + "/config")

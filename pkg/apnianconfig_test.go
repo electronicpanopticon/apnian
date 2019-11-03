@@ -6,16 +6,17 @@ import (
 )
 
 func TestApnianConfig(t *testing.T) {
+	ac := ApnianConfigurer{"apnian.example", "."}
+
 	t.Run("GetApnianConfig", func(t *testing.T) {
-		configName = "apnian.example"
-		sut, err := GetApnianConfig()
+		sut, err := ac.GetApnianConfig()
 
 		assert.Nil(t, err)
 		assert.IsType(t, &ApnianConfig{}, sut)
 	})
 
 	t.Run("getApnianConfig", func(t *testing.T) {
-		sut, err := getApnianConfig("apnian.example")
+		sut, err := ac.GetApnianConfig()
 
 		assert.Nil(t, err)
 		assert.IsType(t, &ApnianConfig{}, sut)
@@ -26,14 +27,20 @@ func TestApnianConfig(t *testing.T) {
 	})
 
 	t.Run("getApnianConfig bad config name returns error", func(t *testing.T) {
-		_, err := getApnianConfig("apnian.example.nope")
+		ac := ApnianConfigurer{"apnian.example.nope", "."}
+		sut, err := ac.getApnianConfig()
 
+		assert.Nil(t, sut)
 		assert.Error(t, err)
 	})
 
 	t.Run("getApnianConfig bad config file returns error", func(t *testing.T) {
-		_, err := getApnianConfig("apnian.badexample")
+		ac := ApnianConfigurer{"apnian.badexample", "."}
+		sut, err := ac.getApnianConfig()
 
+		assert.Nil(t, sut)
 		assert.Error(t, err)
 	})
+
+
 }
