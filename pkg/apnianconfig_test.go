@@ -11,7 +11,10 @@ func TestApnianConfig(t *testing.T) {
 
 		assert.Nil(t, err)
 		assert.IsType(t, &ApnianConfig{}, sut)
-		// assert.NotNil()
+		assert.NotEmpty(t, sut.P8KeyName)
+		assert.NotEmpty(t, sut.Topic)
+		assert.NotEmpty(t, sut.APNSKeyID)
+		assert.NotEmpty(t, sut.TeamID)
 	})
 
 	t.Run("getApnianConfig bad config name returns error", func(t *testing.T) {

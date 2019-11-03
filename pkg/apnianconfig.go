@@ -7,6 +7,9 @@ import (
 
 type ApnianConfig struct {
 	P8KeyName string
+	Topic string
+	APNSKeyID string
+	TeamID string
 }
 
 func GetApnianConfig() (*ApnianConfig, error) {

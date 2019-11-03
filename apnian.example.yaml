@@ -1,1 +1,4 @@
 P8KeyName: AuthKeyName.p8
+Topic: bundleIdentifier
+APNSKeyID: https://developer.apple.com/account/resources/authkeys/list
+TeamID: https://developer.apple.com/account/#/membership/98J5SQ7T33
