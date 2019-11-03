@@ -58,6 +58,7 @@ Profit!
 * [APNS/2](https://github.com/sideshow/apns2)
 * [go-homedir](https://github.com/mitchellh/go-homedir)
 * [Goveralls](https://github.com/mattn/goveralls)
+* [Viper](https://github.com/spf13/viper)
 
 ## Reference
 
