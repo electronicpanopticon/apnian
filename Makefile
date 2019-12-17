@@ -4,10 +4,7 @@ GOTEST=$(GOCMD) test
 
 .PHONY: test
 
-all: get test
+all: test
 
 test:
 		$(GOTEST) -v ./... -cover
-
-get:
-		dep ensure

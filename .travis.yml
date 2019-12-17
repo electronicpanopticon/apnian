@@ -5,7 +5,6 @@ go:
 
 before_install:
   - curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
-  - dep ensure
   - go get github.com/mattn/goveralls
   - go get golang.org/x/tools/cmd/cover
 
