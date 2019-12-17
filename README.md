@@ -2,6 +2,9 @@
 
 [![Build Status](https://api.travis-ci.com/electronicpanopticon/apnian.go.svg?branch=master)](https://travis-ci.com/electronicpanopticon/apnian.go)
 [![Coverage Status](https://coveralls.io/repos/github/electronicpanopticon/apnian.go/badge.svg?branch=master)](https://coveralls.io/github/electronicpanopticon/apnian.go?branch=master)
+[![Go Report Card](https://goreportcard.com/badge/github.com/electronicpanopticon/apnian.go)](https://goreportcard.com/report/github.com/electronicpanopticon/apnian.go)
+[![License](https://img.shields.io/github/license/electronicpanopticon/apnian.go)](https://github.com/electronicpanopticon/apnian.go/blob/master/LICENSE)
+[![Release](https://img.shields.io/github/v/release/electronicpanopticon/apnian.go.svg?style=flat-square)](https://github.com/electronicpanopticon/apnian.go/releases)
 
 ## About
 
@@ -29,7 +32,7 @@ Place your Apple provided p8 file under $GOPATH/keys
 ### Step 3
 Call Apnian from your code:
 
-```go
+```
 package main
 
 import (
