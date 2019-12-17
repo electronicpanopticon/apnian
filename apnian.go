@@ -13,7 +13,7 @@ import (
 
 type ApnianConfigurer struct {
 	ConfigName string
-	Root string
+	Root       string
 }
 
 type Apnian struct {
@@ -55,9 +55,9 @@ func (apnian Apnian) Token() (*token.Token, error) {
 		return &token.Token{}, err
 	}
 	return &token.Token{
-		AuthKey:  authKey,
-		KeyID:    apnian.APNSKeyID,
-		TeamID:   apnian.TeamID,
+		AuthKey: authKey,
+		KeyID:   apnian.APNSKeyID,
+		TeamID:  apnian.TeamID,
 	}, nil
 }
 
