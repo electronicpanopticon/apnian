@@ -2,6 +2,7 @@ package apnian
 
 import (
 	"encoding/json"
+	"github.com/bxcodec/faker/v3"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -40,4 +41,25 @@ func testAPS() *APS {
 	return &APS{
 		APS: payload,
 	}
+}
+
+//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\
+// Benchmark!
+
+var result *APS
+
+func benchmarkGenerateAPSFact(b *testing.B, num int) {
+	var aps *APS
+	for x := 0; x < b.N; x++ {
+		alert := faker.Word()
+		sound := faker.URL()
+		linkUrl := faker.URL()
+		aps = GenerateAPS(alert, sound, linkUrl)
+
+	}
+	result = aps
+}
+
+func BenchmarkFact20(b *testing.B) {
+	benchmarkGenerateAPSFact(b, 20)
 }

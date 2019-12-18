@@ -3,6 +3,7 @@ module github.com/electronicpanopticon/apnian.go
 go 1.13
 
 require (
+	github.com/bxcodec/faker/v3 v3.2.0
 	github.com/electronicpanopticon/gobrick v0.0.0-20191028212433-86765d4a6701
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/pelletier/go-toml v1.6.0 // indirect

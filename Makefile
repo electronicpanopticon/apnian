@@ -3,9 +3,13 @@ GOCMD=go
 GOMOD=$(GOCMD) mod
 GOTEST=$(GOCMD) test
 
-.PHONY: release test tidy
+.PHONY: perf release test tidy
 
 all: test
+
+perf:
+		$(GOTEST) -bench=Fact20 -cpuprofile=cpu.out
+		$(GOCMD) tool pprof -png  apnian.go.test cpu.out
 
 release: tidy
 		$(GOCMD) fmt
