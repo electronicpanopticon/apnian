@@ -24,5 +24,5 @@ func GenerateAPS(alert string, sound string, linkUrl string) *APS {
 }
 
 func (aps APS) ToJsonBytes() []byte {
-	return gobrick.ToJsonBytes(aps)
+	return gobrick.ToJSONBytes(aps)
 }
